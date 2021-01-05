@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Rock Paper Scissors</title>
+    <style>
+      
+    </style>
+    
+  </head>
+
+  <body>
+
+
+
+  </body>
+  
+  
+  <script>
+    // generate random choice of play by computer
+    function computerPlay() {
+        let numberGen = Math.random();
+        if (numberGen < 0.3333) {
+            return "rock";
+        }
+        else if (numberGen < .6666) {
+            return "paper";
+        }
+        else return "scissors";
+    }
+
+    // get input from user & validate until true
+    function userPlay() {
+        let input = prompt("What\s your move?");
+        let play = input.toLowerCase();
+        return play;
+    }
+    // compare moves, return winner
+    function compareMoves() {
+        if ((userThrow === "rock" && cpuThrow === "scissors") || 
+        (userThrow === "scissors" && cpuThrow === "paper") ||
+        (userThrow === "paper" && cpuThrow === "rock")) {
+            console.log("Computer chose " + cpuThrow + ". You win!");
+            winner = "user";
+            return winner;
+        }    
+        else if ((cpuThrow === "rock" && userThrow === "scissors") || 
+        (cpuThrow === "scissors" && userThrow === "paper") ||
+        (cpuThrow === "paper" && userThrow === "rock")) {   
+            console.log("Computer chose " + cpuThrow + ". You lose!");
+            winner = "cpu";
+            return winner;
+        }
+        else {
+            console.log("You both chose " + userThrow + ", nobody wins...") 
+            winner = "neither";
+            return winner;
+        }
+    }
+    
+    // update log with # of wins each & total number of games, tell user score
+    function logmoves() {
+        if (winner === "user") {++userWins; ++roundNumber}
+        else if (winner === "cpu") {++cpuWins; ++roundNumber}
+        else;
+        console.log("Round " + roundNumber + ". The score is " + userWins + " to you and " + cpuWins + " to the computer.")
+    }
+
+    function gameSequence() {
+        cpuThrow = computerPlay();
+        userThrow = userPlay();
+        compareMoves();
+        logmoves();
+    }
+
+       // if total number of games < TOTAL return to step 1, otherwise message user with final result
+    function checkGameWinner() {
+        if (roundNumber <= 4) gameSequence()
+        else if (userWins > cpuWins) console.log("Congratulations!! You won the best of 5")
+        else console.log("You lost the best of 5 :\'(")
+    }
+
+    let winner
+    let cpuThrow = computerPlay();
+    let userThrow = userPlay();
+    let roundNumber = 0;
+    let userWins = 0;
+    let cpuWins = 0;
+
+    compareMoves();
+    logmoves();
+    checkGameWinner();
+    checkGameWinner();
+    checkGameWinner();
+    checkGameWinner();
+    checkGameWinner();
+    checkGameWinner();
+    checkGameWinner();
+    checkGameWinner();
+
+
+
+
+    
+
+
+
+
+ 
+
+  </script>
+
+</html>
