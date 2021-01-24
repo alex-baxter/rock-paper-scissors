@@ -18,3 +18,19 @@ h1 {
     transform: scale(1.1);
     cursor: pointer;
 }
+
+.scoretext {
+    display: inline;
+    color: #575757;
+    
+}
+
+.scorebox {
+    text-align: center;
+}
+
+.messagebox {
+    padding: 30px 0px 20px 0px;
+    display: flex;
+    justify-content: center;
+}

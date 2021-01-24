@@ -29,9 +29,27 @@
         </div>
     </div>
 
-    <p id="alertmsg"></p>
+    <div class="messagebox"> 
+        <h3 id="alertmsg"></h3>
+    </div>
 
-    <p id="winnermsg"></p>
+    <div class="container">
+        <div class="row">
+            <div class="col-5 scorebox">
+                <h4 class="scoretext">Your Score:</h4>
+                <h4 class="scoretext" id="userScoreBox"></h4>
+            </div>
+            <div class="col-2">  </div>
+            <div class="col-5 scorebox">
+                <h4 class="scoretext">CPU Score:</h4>
+                <h4 class="scoretext" id="cpuScoreBox"></h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="messagebox">
+        <h3 id="winnerBox"></h3>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 
@@ -50,29 +68,38 @@
         else return "scissors";
     }
 
-    function userPlay() {
-        let input = prompt("What\s your move?");
-        let play = input.toLowerCase();
-        return play;
+    function chooseRock() {
+        userThrow = "rock";
+        gameSequence();
+    }
+
+    function choosePaper() {
+        userThrow = "paper";
+        gameSequence();
+    }
+
+    function chooseScissors() {
+        userThrow = "scissors";
+        gameSequence();
     }
 
     function compareMoves() {
         if ((userThrow === "rock" && cpuThrow === "scissors") || 
         (userThrow === "scissors" && cpuThrow === "paper") ||
         (userThrow === "paper" && cpuThrow === "rock")) {
-            console.log("Computer chose " + cpuThrow + ". You win!");
+            alertBox.textContent = ("Computer chose " + cpuThrow + ". You win!");
             winner = "user";
             return winner;
         }    
         else if ((cpuThrow === "rock" && userThrow === "scissors") || 
         (cpuThrow === "scissors" && userThrow === "paper") ||
         (cpuThrow === "paper" && userThrow === "rock")) {   
-            console.log("Computer chose " + cpuThrow + ". You lose!");
+            alertBox.textContent = ("Computer chose " + cpuThrow + ". You lose!");
             winner = "cpu";
             return winner;
         }
         else {
-            console.log("You both chose " + userThrow + ", nobody wins...") 
+            alertBox.textContent = ("You both chose " + userThrow + ", nobody wins...") 
             winner = "neither";
             return winner;
         }
@@ -82,48 +109,44 @@
         if (winner === "user") {++userWins; ++roundNumber}
         else if (winner === "cpu") {++cpuWins; ++roundNumber}
         else;
+        userScoreDisplay.textContent = userWins;
+        cpuScoreDisplay.textContent = cpuWins;
         console.log("Round " + roundNumber + ". The score is " + userWins + " to you and " + cpuWins + " to the computer.")
     }
 
     function gameSequence() {
         cpuThrow = computerPlay();
-        userThrow = userPlay();
         compareMoves();
         logmoves();
+        checkGameWinner();
     }
 
     function checkGameWinner() {
-        if (roundNumber <= 4) gameSequence()
-        else if (userWins > cpuWins) console.log("Congratulations!! You won the best of 5")
-        else console.log("You lost the best of 5 :\'(")
+        if (roundNumber <= 4) return
+        else if (userWins > cpuWins) winnerBox.textContent = "Congratulations!! You won the best of 5"
+        else winnerBox.textContent = "You lost the best of 5 :\'("
     }
 
-    let winner
-    let cpuThrow = computerPlay();
-    let userThrow = userPlay();
+    let winner;
+    let cpuThrow;
+    let userThrow;
     let roundNumber = 0;
     let userWins = 0;
     let cpuWins = 0;
 
-    compareMoves();
-    logmoves();
+    const rockBox = document.querySelector('#rock');
+    const paperBox = document.querySelector('#paper');
+    const scissorsBox = document.querySelector('#scissors');
+    const alertBox = document.querySelector('#alertmsg');
+    const userScoreDisplay = document.querySelector('#userScoreBox');
+    const cpuScoreDisplay = document.querySelector('#cpuScoreBox');
+    const winnerBox = document.querySelector('#winnerBox');
+
+    rockBox.addEventListener('click', chooseRock);
+    paperBox.addEventListener('click', choosePaper);
+    scissorsBox.addEventListener('click', chooseScissors);       
     
-    while (roundNumber < 5) {
-        gameSequence();
-    }
-
-    if (userWins > cpuWins) console.log("Congratulations!! You won the best of 5")
-        else console.log("You lost the best of 5 :\'(")
-
-
-
     
-
-
-
-
- 
-
   </script>
 
 </html>
